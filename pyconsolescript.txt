@@ -1,0 +1,3 @@
+execfile('Mailer.py')
+m = Mailer('vishwas@thoughtworks.com')
+m.sendMail('14385@thoughtworks.com', 'Some subject', 'Some message', '/home/vhasus/foss.in/mail_fun/mapping.csv')
