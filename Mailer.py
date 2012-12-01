@@ -21,7 +21,6 @@ class Mailer():
 		self.session.login(self.sender, password)	
 	
 	def sendMail(self, recipient, subject, message_body, filename_with_full_path):
-		recipient = 'vaikuntj@thoughtworks.com'
 		directory = os.getcwd()
 
 		msg = MIMEMultipart()
@@ -34,4 +33,7 @@ class Mailer():
 		msg.attach(attachment)
 		msg.attach(MIMEText(message_body))
 		self.session.sendmail(self.sender, recipient, msg.as_string())
+
+	def close(self):
+		self.session.close()ds
 

@@ -1,3 +1,4 @@
+import os
 import csv
 
 class MappingFileNotFound(Exception):
