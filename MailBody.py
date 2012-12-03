@@ -13,5 +13,5 @@ class MailBody:
 		value_row = self.text_with_tag(value_row, "tr")
 		return self.text_with_tag(header_row + value_row, "table")
 
-	def textWithTag(self, value, tag):
+  def textWithTag(self, value, tag):
 		return "<%s>%s</%s>" % (tag, value, tag)
