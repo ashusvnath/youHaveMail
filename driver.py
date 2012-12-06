@@ -3,8 +3,8 @@ from MailBody import MailBody
 from Mailer import Mailer
 from Constants import Constants
 import sys
-
 import os
+
 if __name__ == '__main__':
 	empdata_reader = EmployeeDataReader(Constants.MAPPING_FILE)
 	header, employee_data_list = empdata_reader.read()
@@ -14,8 +14,9 @@ if __name__ == '__main__':
 	try:
 		employees_without_bill_file = []
 		for employee_data in employee_data_list:
-			if os.path.exists("%s.pdf" % employee_data.mobile_number):
-				mailer.send_mail(('%s@thoughtworks.com' % employee_data.employee_id), 'Your bill for the month between %s and %s' % (employee_data.start_date, employee_data.end_date), MailBody(header, employee_data).html(), Constants.MAPPING_FILE)
+			bill_file_name = Constants.BILLS_DIR + os.sep + "%s.pdf" % employee_data.mobile_number
+			if os.path.exists(bill_file_name):
+				mailer.send_mail(('%s@thoughtworks.com' % employee_data.employee_id), 'Your bill for the month between %s and %s' % (employee_data.start_date, employee_data.end_date), MailBody(header, employee_data).html(), bill_file_name)
 			else:
 				employees_without_bill_file.append(employee_data)
 		new_header = ["employee_id", "name", "mobile_number"]
