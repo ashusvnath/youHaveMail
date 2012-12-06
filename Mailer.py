@@ -20,7 +20,7 @@ class Mailer():
 		password = getpass.getpass('Enter password for %s: ' % self.sender)
 		self.session.login(self.sender, password)	
 	
-	def sendMail(self, recipient, subject, message_body, filename_with_full_path):
+	def send_mail(self, recipient, subject, message_body, filename_with_full_path):
 		directory = os.getcwd()
 
 		msg = MIMEMultipart()
@@ -31,9 +31,9 @@ class Mailer():
 		attachment = MIMEApplication(open(filename_with_full_path, 'rb').read(), _subtype='pdf')
 		attachment.add_header('Content-Disposition', 'attachment', filename=os.path.basename(filename_with_full_path))
 		msg.attach(attachment)
-		msg.attach(MIMEText(message_body))
+		msg.attach(MIMEText(message_body, 'html'))
 		self.session.sendmail(self.sender, recipient, msg.as_string())
 
 	def close(self):
-		self.session.close()ds
+		self.session.close()
 

@@ -1,5 +1,6 @@
 import os
 import csv
+from EmployeeData import EmployeeData
 
 class MappingFileNotFound(Exception):
 	def __init__(self, message = "Employee data file does not exist"):
@@ -17,14 +18,10 @@ class EmployeeDataReader():
 	def read(self):
 		input_file  = open(self.filename, "rb")
 		csv_reader = csv.reader(input_file)
-		rownum = 0
+    		header = csv_reader.next()
+    		employee_data_list = []
 		for row in csv_reader:
-			if rownum == 0:
-				header = row
-			else:
-				colnum = 0
-				for col in row:
-					print '%-8s: %s' % (header[colnum], col)
-					colnum += 1
-			rownum += 1
+			e = EmployeeData(header,row)
+      			employee_data_list.append(e)
 		input_file.close()
+		return header, employee_data_list
